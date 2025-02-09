@@ -12,7 +12,7 @@ target_include_directories(unity
 
 # Function to create test targets
 function(add_unit_test test_name test_file)
-    add_executable(${test_name} ${test_file} ${CMAKE_CURRENT_SOURCE_DIR}/../src/pal_file_ops.c)
+    add_executable(${test_name} ${test_file} ${CMAKE_CURRENT_SOURCE_DIR}/pal.c)
     target_link_libraries(${test_name} 
         PRIVATE 
             unity 

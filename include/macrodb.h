@@ -3,6 +3,7 @@
 
 #include <stddef.h>  // for size_t
 #include "tablehandler.h"
+#include "pal.h"
 
 typedef enum
 {

@@ -13,10 +13,7 @@ static void init_memory_file(void)
     {
         memory_file = fopen(MEMORY_FILE_NAME, "wb+");
         if (memory_file == NULL)
-        {
-            fprintf(stderr, "Failed to create memory file\n");
             return;
-        }
 
         // Initialize file with zeros up to PAL_MEMORY_SIZE
         uint8_t zero = 0;
@@ -35,6 +32,8 @@ void cleanup_memory_file(void)
     {
         fclose(memory_file);
         memory_file = NULL;
+        // Delete the file to ensure clean state
+        remove(MEMORY_FILE_NAME);
     }
 }
 

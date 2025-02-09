@@ -4,8 +4,8 @@
 // ! BE SURE DEFAULT VALUES DO NOT EXCEEDS TYPE SIZE
 
 // capital| name| type| def
-DATA(DATA1, data1, int, 15)
-DATA(DATA2, data2, float, 10.5)
-DATA(DATA3, data3, double, 20.6)
-DATA(DATA4, data4, char, 'S')
-// DATA(DATA5, data5, char*, "selim")
+DATA(DATA_INT, data_int, int, 15)
+DATA(DATA_FLOAT, data_float, float, 10.5)
+DATA(DATA_DOUBLE, data_double, double, 20.6)
+DATA(DATA_CHAR, data_char, char, 'S')
+DATA(DATA_STRING_10, data_string_10, string_10, "selim")

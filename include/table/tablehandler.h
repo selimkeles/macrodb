@@ -4,16 +4,15 @@
 
 #include "macrodb.h"
 #include <stdbool.h>
+#include "macrodbtypes.h"
 
 // enumeration based on our table
 #define DATA(capital, name, type, def) capital,
-enum table_index_t {
+typedef enum {
 #include "table.h"
     TABLE_MAX
-};
+} table_index_t;
 #undef DATA
-
-typedef enum table_index_t table_index_t;
 
 // extern variables based on our table
 #define DATA(capital, name, type, def) extern type name;

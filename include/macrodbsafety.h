@@ -6,7 +6,7 @@
 // which is used to check if the data is written previously
 // if magic number is not found, in init default value will be used
 #define MAGIC_NUMBER 0x35
-#define MAGIC_NUMBER_SIZE sizeof(MAGIC_NUMBER)
+#define MAGIC_NUMBER_SIZE sizeof(char)  // Magic number is stored as a single byte
 
 db_status mdb_check_db_size(void);
 db_status mdb_check_db_boundaries(void);

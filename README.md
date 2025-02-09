@@ -75,25 +75,12 @@ The database can be configured by modifying the following parameters in `include
 ## TODO
 
 ### Upcoming Features
-1. String Type Support
-   - Implementation of variable-length string storage
-   - String compression for efficient storage
-   - String validation and sanitization
-   - Maximum string length configuration
-
-2. Advanced Struct Support
+1- Advanced Struct Support
    - Nested struct storage
    - Array of structs support
    - Dynamic struct field allocation
    - Struct versioning for backward compatibility
    - Automatic struct serialization/deserialization
-
-### Implementation Timeline
-- [ ] Basic string operations (Q2 2024)
-- [ ] String compression and optimization (Q2 2024)
-- [ ] Basic struct operations (Q3 2024)
-- [ ] Advanced struct features (Q3 2024)
-- [ ] Documentation and examples update (Q4 2024)
 
 ## Contributing
 
