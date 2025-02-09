@@ -1,7 +1,7 @@
 // Add non standard types here (structs, enums, etc.)
 // ! DO NOT MODIFY OR REMOVE EXISTING TYPES, ADD NEW TYPES INSTEAD
-#ifndef XDBTYPES_H
-#define XDBTYPES_H
+#ifndef MACRODBTYPES_H
+#define MACRODBTYPES_H
 
 #include <stdbool.h>
 typedef struct

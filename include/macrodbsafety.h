@@ -1,5 +1,5 @@
-#ifndef XDBSAFETY_H
-#define XDBSAFETY_H
+#ifndef MACRODBSAFETY_H
+#define MACRODBSAFETY_H
 
 #include "macrodb.h"
 // For every entry in the table, there is a magic number

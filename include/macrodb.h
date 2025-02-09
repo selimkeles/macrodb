@@ -1,5 +1,5 @@
-#ifndef XDB_H
-#define XDB_H
+#ifndef MACRODB_H
+#define MACRODB_H
 
 #include <stddef.h>  // for size_t
 #include "tablehandler.h"

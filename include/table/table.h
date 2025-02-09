@@ -1,7 +1,11 @@
-// ! NEVER EVER USE THIS FILE DIRECTLY 
+// ! NEVER EVER USE THIS FILE DIRECTLY
 // ! ALWAYS ADD NEW ENTRIES AT THE END
 // ! DO NOT MODIFY OR REMOVE EXISTING ENTRIES
 // ! BE SURE DEFAULT VALUES DO NOT EXCEEDS TYPE SIZE
 
-//  name| type| def
-DATA(data1, int, 15)
+// capital| name| type| def
+DATA(DATA1, data1, int, 15)
+DATA(DATA2, data2, float, 10.5)
+DATA(DATA3, data3, double, 20.6)
+DATA(DATA4, data4, char, 'S')
+// DATA(DATA5, data5, char*, "selim")

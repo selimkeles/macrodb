@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 // enumeration based on our table
-#define DATA(name, type, def) name,
+#define DATA(capital, name, type, def) capital,
 enum table_index_t {
 #include "table.h"
     TABLE_MAX
@@ -16,7 +16,7 @@ enum table_index_t {
 typedef enum table_index_t table_index_t;
 
 // extern variables based on our table
-#define DATA(name, type, def) extern type name;
+#define DATA(capital, name, type, def) extern type name;
 #include "table.h"
 #undef DATA
 
