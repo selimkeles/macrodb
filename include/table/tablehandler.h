@@ -7,7 +7,7 @@
 #include "macrodbtypes.h"
 
 // enumeration based on our table
-#define DATA(capital, name, type, def) capital,
+#define DATA(capital, name, type, size, ...) capital,
 typedef enum {
 #include "table.h"
     TABLE_MAX
@@ -15,7 +15,7 @@ typedef enum {
 #undef DATA
 
 // extern variables based on our table
-#define DATA(capital, name, type, def) extern type name;
+#define DATA(capital, name, type, size, ...) extern type name;
 #include "table.h"
 #undef DATA
 

@@ -10,6 +10,8 @@ MacroDB is a lightweight, embedded database system designed for embedded systems
 - Platform abstraction layer for portability
 - Configurable memory size and address space
 - Type-safe data storage and retrieval
+- Support for custom struct data types
+- Dynamic string handling based on size information
 
 ## Requirements
 
@@ -52,16 +54,19 @@ int main() {
     }
 
     // Read a value
-    my_dummy_struct data;
-    status = mdb_read(MY_DUMMY_STRUCT, &data);
+    status = mdb_read(DATA_STRUCT);
+    if (status == DB_OK) {
+        printf("Read struct: {id: %d, age: %d, name: %s}\n", 
+               data_struct.id, data_struct.age, data_struct.name);
+    }
     
     // Write a value
-    my_dummy_struct new_data = {
+    my_dummy_struct_t new_data = {
         .id = 1,
         .age = 25,
         .name = "John Doe"
     };
-    status = mdb_write(MY_DUMMY_STRUCT, &new_data);
+    status = mdb_write(DATA_STRUCT, &new_data);
 }
 ```
 
@@ -75,12 +80,9 @@ The database can be configured by modifying the following parameters in `include
 ## TODO
 
 ### Upcoming Features
-1- Advanced Struct Support
+1- Enhanced Struct Support
    - Nested struct storage
    - Array of structs support
-   - Dynamic struct field allocation
-   - Struct versioning for backward compatibility
-   - Automatic struct serialization/deserialization
 
 ## Contributing
 

@@ -8,9 +8,9 @@ db_status mdb_check_db_size(void)
     size_t alignment_padding = 0;
 
 // Calculate size for each entry in the table including alignment requirements
-#define DATA(capital, name, type, def)                                                                            \
-    alignment_padding = (sizeof(type) % sizeof(void *)) ? (sizeof(void *) - (sizeof(type) % sizeof(void *))) : 0; \
-    total_size += sizeof(type) + MAGIC_NUMBER_SIZE + alignment_padding;
+#define DATA(capital, name, type, size, ...)                                                                            \
+    alignment_padding = (size % sizeof(void *)) ? (sizeof(void *) - (size % sizeof(void *))) : 0; \
+    total_size += size + MAGIC_NUMBER_SIZE + alignment_padding;
 #include "table.h"
 #undef DATA
 
@@ -20,7 +20,7 @@ db_status mdb_check_db_size(void)
 
     // Ensure minimum required size
     if (total_size < sizeof(char))
-        return DB_NO_ENTRY_FOUND;
+        return DB_EXIST_NO_ENTRY;
 
     return DB_OK;
 }

@@ -4,7 +4,8 @@
 #include "tablehandler.h" // for table definitions
 
 // initialize all variables with default values since they are extern
-#define DATA(capital, name, type, def) type name = def;
+#define DATA(capital, name, type, size, ...) \
+    type name = __VA_ARGS__;
 #include "table.h"
 #undef DATA
 
@@ -22,7 +23,7 @@ db_status mdb_read(table_index_t index)
     if (size == 0)
         return DB_INVALID_ARGUMENT;
 
-#define DATA(capital, name, type, def) \
+#define DATA(capital, name, type, size, ...) \
     if (index == capital)              \
         status = mdb_read_memory(PAL_MEMORY_START + address, size, &name);
 #include "table.h"
@@ -82,10 +83,10 @@ db_status mdb_fetch_db(void)
         if (status == DB_MAGIC_NUMBER_MISMATCH)
         {
             // Initialize with default value if magic number doesn't match
-#define DATA(capital, name, type, def)         \
+#define DATA(capital, name, type, size, ...)         \
             if (i == capital)                  \
             {                                  \
-                type val = def;                \
+                type val = __VA_ARGS__;        \
                 status = mdb_write(i, &val);   \
                 status = mdb_read(i);          \
                 if (status != DB_OK)           \

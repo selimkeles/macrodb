@@ -8,7 +8,7 @@ uint32_t mdb_find_address(table_index_t index)
     uint32_t alignment_padding = 0;
 
 // Calculate offset to the requested index
-#define DATA(capital, name, type, def)                                                                 \
+#define DATA(capital, name, type, size, ...)                                                                 \
     if (index == capital)                                                                             \
     {                                                                                                 \
         /* Add magic number offset */                                                                 \
@@ -27,10 +27,10 @@ size_t mdb_find_variable_size(table_index_t index)
     size_t total_size = 0;
 
 // Calculate size for entry including magic value
-#define DATA(capital, name, type, def)      \
+#define DATA(capital, name, type, size, ...)      \
     if (index == capital)                   \
     {                                       \
-        return sizeof(type);                \
+        return size;                \
     }
 #include "table.h"
 #undef DATA

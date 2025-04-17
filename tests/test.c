@@ -13,8 +13,7 @@ const char* get_status_string(db_status status) {
         case DB_OK: return "DB_OK";
         case DB_ENTRY_NOT_FOUND: return "DB_ENTRY_NOT_FOUND";
         case DB_OUT_OF_MEMORY: return "DB_OUT_OF_MEMORY";
-        case DB_NO_ENTRY_FOUND: return "DB_NO_ENTRY_FOUND";
-        case DB_IO_ERROR: return "DB_IO_ERROR";
+        case DB_EXIST_NO_ENTRY: return "DB_EXIST_NO_ENTRY";
         case DB_INVALID_ARGUMENT: return "DB_INVALID_ARGUMENT";
         case DB_INVALID_DATA_TYPE: return "DB_INVALID_DATA_TYPE";
         case DB_MAGIC_NUMBER_MISMATCH: return "DB_MAGIC_NUMBER_MISMATCH";
@@ -168,22 +167,45 @@ void test_db_write_read_float(void)
 void test_db_write_read_string(void)
 {
     printf("\nTesting string write/read...\n");
-    string_10 test_value = "test";
+    char* test_value = "test";
     db_status status;
     
     // Write value
     printf("Writing string value: %s\n", test_value);
-    status = mdb_write(DATA_STRING_10, &test_value);
+    status = mdb_write(DATA_STRING, &test_value);
     printf("Write status: %s\n", get_status_string(status));
     TEST_ASSERT_EQUAL_INT(DB_OK, status);
     
     // Read value back
     printf("Reading string value...\n");
-    status = mdb_read(DATA_STRING_10);
+    status = mdb_read(DATA_STRING);
     printf("Read status: %s\n", get_status_string(status));
-    printf("Read value: %s\n", data_string_10);
+    printf("Read value: %s\n", data_string);
     TEST_ASSERT_EQUAL_INT(DB_OK, status);
-    TEST_ASSERT_EQUAL_STRING(test_value, data_string_10);
+    TEST_ASSERT_EQUAL_STRING(test_value, data_string);
+}
+
+void test_db_write_read_struct(void)
+{
+    printf("\nTesting struct write/read...\n");
+    my_dummy_struct_t test_value = {42, 99, "dummy"};
+    db_status status;
+    
+    // Write value
+    printf("Writing struct value: {%d, %d, %s}\n", test_value.id, test_value.age, test_value.name);
+    status = mdb_write(DATA_STRUCT, &test_value);
+    printf("Write status: %s\n", get_status_string(status));
+    TEST_ASSERT_EQUAL_INT(DB_OK, status);
+    
+    // Read value back
+    printf("Reading struct value...\n");
+    status = mdb_read(DATA_STRUCT);
+    printf("Read status: %s\n", get_status_string(status));
+    printf("Read value: {%d, %d, %s}\n", data_struct.id, data_struct.age, data_struct.name);
+    TEST_ASSERT_EQUAL_INT(DB_OK, status);
+    TEST_ASSERT_EQUAL_INT(test_value.id, data_struct.id);
+    TEST_ASSERT_EQUAL_INT(test_value.age, data_struct.age);
+    TEST_ASSERT_EQUAL_STRING(test_value.name, data_struct.name);
 }
 
 void test_db_invalid_index(void)
@@ -208,7 +230,7 @@ void test_db_fetch(void)
     // Write some test values
     int int_value = 42;
     float float_value = 3.14159f;
-    string_10 string_value = "test";
+    char* string_value = "test";
     
     printf("Writing test values...\n");
     status = mdb_write(DATA_INT, &int_value);
@@ -219,7 +241,7 @@ void test_db_fetch(void)
     printf("Float write status: %s\n", get_status_string(status));
     TEST_ASSERT_EQUAL_INT(DB_OK, status);
     
-    status = mdb_write(DATA_STRING_10, &string_value);
+    status = mdb_write(DATA_STRING, &string_value);
     printf("String write status: %s\n", get_status_string(status));
     TEST_ASSERT_EQUAL_INT(DB_OK, status);
     
@@ -234,11 +256,11 @@ void test_db_fetch(void)
     printf("Verifying default values...\n");
     printf("data_int = %d (expected 15)\n", data_int);
     printf("data_float = %f (expected 10.5)\n", data_float);
-    printf("data_string_10 = %s (expected \"selim\")\n", data_string_10);
+    printf("string = %s (expected \"selim\")\n", data_string);
     
     TEST_ASSERT_EQUAL_INT(15, data_int);
     TEST_ASSERT_FLOAT_WITHIN(0.0001f, 10.5f, data_float);
-    TEST_ASSERT_EQUAL_STRING("selim", data_string_10);
+    TEST_ASSERT_EQUAL_STRING("selim", data_string);
 }
 
 int main(void)
@@ -258,6 +280,7 @@ int main(void)
     RUN_TEST(test_db_write_read_int);
     RUN_TEST(test_db_write_read_float);
     RUN_TEST(test_db_write_read_string);
+    RUN_TEST(test_db_write_read_struct);
     RUN_TEST(test_db_invalid_index);
     RUN_TEST(test_db_fetch);
 
